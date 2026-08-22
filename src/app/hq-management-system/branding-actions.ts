@@ -4,7 +4,7 @@ import { supabaseAdmin } from '@/lib/supabase-admin';
 import { supabase } from '@/lib/supabase';
 import { revalidatePath, revalidateTag } from 'next/cache';
 import { brandingSchema } from '@/lib/schemas';
-import { checkAdminSession } from './actions';
+import { checkAdminSession } from './auth-actions';
 import { getCachedBranding } from '@/lib/cache';
 
 export type BrandingSettings = {

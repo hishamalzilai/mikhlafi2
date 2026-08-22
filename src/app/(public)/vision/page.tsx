@@ -1,5 +1,12 @@
 import { getCachedVision } from '@/lib/lists-cache';
 import VisionListClient from './VisionListClient';
+import { createPageMetadata } from '@/lib/seo';
+
+export const metadata = createPageMetadata(
+  'دراسات وأبحاث',
+  'دراسات وأبحاث في الفكر السياسي والشأن اليمني لعبدالملك المخلافي.',
+  '/vision',
+);
 
 export const revalidate = 300;
 

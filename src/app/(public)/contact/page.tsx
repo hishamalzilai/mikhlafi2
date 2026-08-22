@@ -1,6 +1,13 @@
 import React from 'react';
 import { Mail, MapPin, Globe, MessageSquare, Send, Share2 } from 'lucide-react';
 import ContactForm from './ContactForm';
+import { createPageMetadata } from '@/lib/seo';
+
+export const metadata = createPageMetadata(
+  'تواصل معنا',
+  'قنوات التواصل الرسمية مع فريق موقع عبدالملك المخلافي.',
+  '/contact',
+);
 
 export const dynamic = 'force-static';
 

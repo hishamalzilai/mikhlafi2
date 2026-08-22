@@ -3,7 +3,7 @@
 import { supabaseAdmin } from '@/lib/supabase-admin';
 import { supabase } from '@/lib/supabase';
 import { revalidatePath } from 'next/cache';
-import { checkAdminSession } from './actions';
+import { checkAdminSession } from './auth-actions';
 import { aboutSchema } from '@/lib/schemas';
 
 export type AboutContent = {

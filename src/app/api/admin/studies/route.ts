@@ -1,6 +1,6 @@
 import { supabaseAdmin } from '@/lib/supabase-admin';
 import { NextRequest, NextResponse } from 'next/server';
-import { checkAdminSession } from '@/app/hq-management-system/actions';
+import { checkAdminSession } from '@/app/hq-management-system/auth-actions';
 import { studySchema } from '@/lib/schemas';
 import { getValidationErrorMessage } from '@/lib/validation-error';
 import { parseNumericId } from '@/lib/validate-id';

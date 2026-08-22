@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Lock, Mail, Loader2 } from 'lucide-react';
 
-import { verifyAdmin } from '../actions';
+import { verifyAdmin } from '../auth-actions';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -21,10 +21,11 @@ export default function LoginPage() {
     const result = await verifyAdmin(email, password);
 
     if (!result.success) {
-      setError('بيانات الدخول غير صحيحة، أو الحساب غير موجود.');
+      setError(result.error || 'تعذر تسجيل الدخول.');
       setLoading(false);
     } else {
-      router.push('/hq-management-system');
+      router.replace('/hq-management-system');
+      router.refresh();
     }
   };
 
@@ -83,7 +84,7 @@ export default function LoginPage() {
       </div>
 
       <div className="mt-8 text-slate-500 text-sm font-bold opacity-60 z-10">
-         نظام آمن مرتبط بـ Supabase
+         تسجيل دخول آمن عبر Supabase Auth
       </div>
     </div>
   );

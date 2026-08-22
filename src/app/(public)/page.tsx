@@ -6,6 +6,14 @@ import { getCachedHomepageData } from '@/lib/homepage-data';
 
 import TimelineCarousel from '@/components/TimelineCarousel';
 import { getMediaThumbnailUrl } from '@/lib/validate-url';
+import { createPageMetadata } from '@/lib/seo';
+
+export const metadata = createPageMetadata(
+  'عبدالملك المخلافي | الموقع الرسمي',
+  'الموقع الرقمي الشامل والأرشيف التاريخي للمفكر والسياسي اليمني عبدالملك المخلافي.',
+  '/',
+  true,
+);
 
 export const revalidate = 60; // Revalidate every minute
 

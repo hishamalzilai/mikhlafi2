@@ -1,7 +1,7 @@
 "use server";
 
 import { supabaseAdmin } from '@/lib/supabase-admin';
-import { checkAdminSession } from '@/app/hq-management-system/actions';
+import { checkAdminSession } from '@/app/hq-management-system/auth-actions';
 import {
   IMAGE_MIME_TYPES,
   DOCUMENT_MIME_TYPES,
@@ -102,4 +102,3 @@ export async function uploadMediaAction(formData: FormData) {
     return { success: false, error: err.message };
   }
 }
-

@@ -1,6 +1,13 @@
 import { getCachedMedia } from '@/lib/lists-cache';
 import LibraryListClient from './LibraryListClient';
 import { Film } from 'lucide-react';
+import { createPageMetadata } from '@/lib/seo';
+
+export const metadata = createPageMetadata(
+  'المكتبة المرئية',
+  'المكتبة المرئية والصوتية لعبدالملك المخلافي.',
+  '/library',
+);
 
 export const revalidate = 3600;
 

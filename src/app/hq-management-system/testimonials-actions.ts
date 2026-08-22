@@ -3,7 +3,7 @@
 import { revalidatePath } from 'next/cache';
 import { supabase } from '@/lib/supabase';
 import { supabaseAdmin } from '@/lib/supabase-admin';
-import { checkAdminSession } from './actions';
+import { checkAdminSession } from './auth-actions';
 import { testimonialSchema } from '@/lib/schemas';
 
 export async function getTestimonialsAction() {

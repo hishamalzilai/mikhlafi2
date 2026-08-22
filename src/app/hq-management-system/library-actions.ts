@@ -1,7 +1,7 @@
 "use server";
 
 import { supabaseAdmin } from '@/lib/supabase-admin';
-import { checkAdminSession } from '@/app/hq-management-system/actions';
+import { checkAdminSession } from '@/app/hq-management-system/auth-actions';
 import { mediaLibrarySchema } from '@/lib/schemas';
 import { isValidMediaUrl, isValidImageUrl } from '@/lib/validate-url';
 import { revalidatePath } from 'next/cache';

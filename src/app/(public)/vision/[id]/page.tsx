@@ -1,11 +1,13 @@
 import { supabase } from '@/lib/supabase';
 import { notFound } from 'next/navigation';
+import { cache } from 'react';
 import VisionContent from './VisionContent';
+import { createPageMetadata, plainTextExcerpt } from '@/lib/seo';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 3600;
 
-async function getStudy(id: string) {
+const getStudy = cache(async (id: string) => {
   const { data, error } = await supabase
     .from('studies')
     .select('*')
@@ -13,9 +15,22 @@ async function getStudy(id: string) {
     .single();
   if (error || !data) return null;
   return data;
+});
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const study = await getStudy(id);
+
+  if (!study) return { robots: { index: false, follow: false } };
+
+  return createPageMetadata(
+    study.title,
+    plainTextExcerpt(study.excerpt || study.content, 'دراسة من أرشيف عبدالملك المخلافي.'),
+    `/vision/${id}`,
+  );
 }
 
-export default async function StudyReadPage({ params }: { params: any }) {
+export default async function StudyReadPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = await params;
   const studyData = await getStudy(resolvedParams.id);
   if (!studyData) notFound();

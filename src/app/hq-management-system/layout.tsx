@@ -1,54 +1,25 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
-import { supabase } from '@/lib/supabase';
-import { Loader2, LayoutDashboard, Newspaper, FileText, BookOpen, Film, FolderArchive, LogOut, UserRound, Menu, X, Home, Quote, Palette, Info } from 'lucide-react';
+import { LayoutDashboard, Newspaper, FileText, BookOpen, Film, FolderArchive, LogOut, UserRound, Menu, X, Home, Quote, Palette, Info } from 'lucide-react';
 import Link from 'next/link';
-import { checkAdminSession, logoutAdmin } from './actions';
+import { logoutAdmin } from './auth-actions';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
-  const [loading, setLoading] = useState(true);
-  const [session, setSession] = useState<any>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
 
-  useEffect(() => {
-    const verifySession = async () => {
-      const isValid = await checkAdminSession();
-      if (isValid) {
-        setSession(true);
-      } else {
-        if (pathname !== '/hq-management-system/login') {
-          router.push('/hq-management-system/login');
-        }
-      }
-      setLoading(false);
-    };
-    verifySession();
-  }, [pathname, router]);
-
-  // Close sidebar on route change (mobile)
-  useEffect(() => {
-    setIsSidebarOpen(false);
-  }, [pathname]);
-
   const handleLogout = async () => {
     await logoutAdmin();
-    setSession(null);
-    router.push('/hq-management-system/login');
+    router.replace('/hq-management-system/login');
+    router.refresh();
   };
-
-  if (loading) {
-    return <div className="min-h-screen flex items-center justify-center bg-slate-900"><Loader2 className="w-10 h-10 text-[#b18c39] animate-spin" /></div>;
-  }
 
   if (pathname === '/hq-management-system/login') {
     return <>{children}</>;
   }
-
-  if (!session) return null;
 
   const isActive = (path: string) => pathname === path ? 'bg-[#b18c39]/10 text-[#b18c39]' : 'hover:bg-slate-800 text-slate-400 hover:text-white';
 
@@ -114,6 +85,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <Link 
               key={link.href}
               href={link.href} 
+              onClick={() => setIsSidebarOpen(false)}
               className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${isActive(link.href)}`}
             >
                <link.icon className={`w-5 h-5 ${link.color || ''}`} />

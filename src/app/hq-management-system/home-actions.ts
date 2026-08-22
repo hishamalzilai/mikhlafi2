@@ -3,7 +3,7 @@
 import { supabaseAdmin } from '@/lib/supabase-admin';
 import { revalidatePath, revalidateTag } from 'next/cache';
 import { homepageSchema } from '@/lib/schemas';
-import { checkAdminSession } from './actions';
+import { checkAdminSession } from './auth-actions';
 import { getCachedHomepage } from '@/lib/cache';
 
 export type TimelineItem = {

@@ -1,7 +1,7 @@
 "use server";
 
 import { supabaseAdmin } from '@/lib/supabase-admin';
-import { checkAdminSession } from '@/app/hq-management-system/actions';
+import { checkAdminSession } from '@/app/hq-management-system/auth-actions';
 import { newsSchema } from '@/lib/schemas';
 import { isValidImageUrl } from '@/lib/validate-url';
 import { IMAGE_MIME_TYPES, validateFileMagicBytes } from '@/lib/file-validation';
@@ -157,4 +157,3 @@ export async function deleteNewsAction(id: number | string) {
     return { success: false, error: err.message };
   }
 }
-

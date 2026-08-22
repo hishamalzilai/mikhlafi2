@@ -1,5 +1,12 @@
 import { getCachedNews } from '@/lib/lists-cache';
 import NewsListClient from './NewsListClient';
+import { createPageMetadata } from '@/lib/seo';
+
+export const metadata = createPageMetadata(
+  'الأخبار والآراء',
+  'آخر أخبار وتصريحات وآراء عبدالملك المخلافي.',
+  '/news',
+);
 
 export const revalidate = 300;
 

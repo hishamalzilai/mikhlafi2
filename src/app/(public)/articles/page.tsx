@@ -1,5 +1,12 @@
 import { getCachedArticles } from '@/lib/lists-cache';
 import ArticlesListClient from './ArticlesListClient';
+import { createPageMetadata } from '@/lib/seo';
+
+export const metadata = createPageMetadata(
+  'المقالات',
+  'مقالات وكتابات عبدالملك المخلافي في السياسة والفكر والشأن اليمني.',
+  '/articles',
+);
 
 export const revalidate = 300;
 

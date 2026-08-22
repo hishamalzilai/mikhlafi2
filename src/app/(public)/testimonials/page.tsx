@@ -1,6 +1,13 @@
 import React from 'react';
 import { getCachedTestimonials } from '@/lib/lists-cache';
 import TestimonialsListClient from './TestimonialsListClient';
+import { createPageMetadata } from '@/lib/seo';
+
+export const metadata = createPageMetadata(
+  'شهادات في الموقف والمسيرة',
+  'شهادات وآراء موثقة في مسيرة عبدالملك المخلافي ومواقفه الوطنية.',
+  '/testimonials',
+);
 
 export const revalidate = 300;
 

@@ -1,6 +1,13 @@
 import React from 'react';
 import { Mail, ShieldCheck, History, Share2, MessageSquare, Send, Globe, Award, Landmark } from 'lucide-react';
 import Link from 'next/link';
+import { createPageMetadata } from '@/lib/seo';
+
+export const metadata = createPageMetadata(
+  'مبادرة توثيق الأرشيف',
+  'شارك في توثيق وحفظ الأرشيف التاريخي لعبدالملك المخلافي.',
+  '/archive-cooperation',
+);
 
 export const dynamic = 'force-static';
 

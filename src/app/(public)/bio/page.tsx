@@ -1,6 +1,13 @@
 import React from 'react';
 import { FileText, ChevronLeft, Quote, UserRound } from 'lucide-react';
 import cvData from '@/data/cv.json';
+import { createPageMetadata } from '@/lib/seo';
+
+export const metadata = createPageMetadata(
+  'السيرة الذاتية',
+  'السيرة الذاتية والمسيرة السياسية والدبلوماسية لعبدالملك المخلافي.',
+  '/bio',
+);
 
 export const dynamic = 'force-static';
 

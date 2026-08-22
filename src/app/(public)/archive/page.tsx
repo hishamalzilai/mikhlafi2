@@ -3,6 +3,13 @@ import ArchiveListClient from './ArchiveListClient';
 import { Search } from 'lucide-react';
 import { unstable_cache } from 'next/cache';
 import { CACHE_TAGS } from '@/lib/cache';
+import { createPageMetadata } from '@/lib/seo';
+
+export const metadata = createPageMetadata(
+  'الأرشيف الشامل',
+  'أرشيف وثائق وصور وتسجيلات عبدالملك المخلافي ومسيرته الوطنية.',
+  '/archive',
+);
 
 export const revalidate = 3600;
 

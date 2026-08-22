@@ -5,7 +5,7 @@ import { supabase } from '@/lib/supabase';
 import { revalidatePath } from 'next/cache';
 import { DEFAULT_NAV_ORDER, MASTER_NAVIGATION } from '@/lib/nav-config';
 import { navigationOrderSchema } from '@/lib/schemas';
-import { checkAdminSession } from './actions';
+import { checkAdminSession } from './auth-actions';
 
 export async function getNavOrder() {
   try {
