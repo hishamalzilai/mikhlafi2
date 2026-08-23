@@ -12,6 +12,17 @@ const splitIntoPages = (textString: string) => {
   let currentLength = 0;
   for (const p of paragraphs) {
     if (p.length > CHARS_PER_PAGE) {
+      if (!/\s/.test(p)) {
+        if (currentPage.length > 0) {
+          pages.push([...currentPage]);
+          currentPage = [];
+          currentLength = 0;
+        }
+        for (let i = 0; i < p.length; i += CHARS_PER_PAGE) {
+          pages.push([p.slice(i, i + CHARS_PER_PAGE)]);
+        }
+        continue;
+      }
       const words = p.split(/\s+/);
       let chunk = '';
       for (const w of words) {
