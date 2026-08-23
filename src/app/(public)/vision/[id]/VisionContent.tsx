@@ -103,7 +103,7 @@ export default function VisionContent({ studyData }: VisionContentProps) {
                   </div>
               )}
 
-              <article className="prose prose-lg md:prose-xl lg:prose-xl max-w-none text-slate-800 prose-headings:font-black prose-p:text-justify prose-p:leading-[2.2] flex-1 whitespace-pre-wrap prose-p:text-[18px] prose-p:font-bold">
+              <article className="prose prose-lg md:prose-xl lg:prose-xl max-w-none text-slate-800 prose-headings:font-black prose-p:text-justify prose-p:leading-[2.2] flex-1 whitespace-pre-wrap break-all prose-p:text-[18px] prose-p:font-bold">
                  {paginatedContent.map((paragraph: string, index: number) => (
                     <p key={index} className="mb-8">{paragraph}</p>
                  ))}
