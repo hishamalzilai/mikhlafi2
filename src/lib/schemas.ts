@@ -67,7 +67,7 @@ export const archiveSchema = z.object({
 export const studySchema = z.object({
   id: z.number().optional(),
   title: z.string().min(2).max(500),
-  content: z.string().min(10).max(100000),
+  content: z.string().min(10).max(500000),
   author: z.string().max(200).optional(),
   excerpt: z.string().max(2000).optional(),
   category: z.string().max(200).optional(),
