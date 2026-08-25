@@ -27,6 +27,39 @@ function asSafeCount(value: unknown) {
   return Number.isSafeInteger(count) && count >= 0 ? count : 0;
 }
 
+async function loadAnalyticsFromTables() {
+  const [totalsResult, dailyResult] = await Promise.all([
+    supabaseAdmin
+      .from('page_view_totals')
+      .select('title, path, content_type, views')
+      .order('views', { ascending: false })
+      .limit(10),
+    supabaseAdmin
+      .from('page_view_daily')
+      .select('views')
+      .eq('view_date', getCairoDate()),
+  ]);
+
+  if (totalsResult.error) throw totalsResult.error;
+  if (dailyResult.error) throw dailyResult.error;
+
+  const topPages = (totalsResult.data ?? []).flatMap((row) => {
+    if (!isViewContentType(row.content_type)) return [];
+    return [{
+      title: row.title,
+      path: row.path,
+      contentType: VIEW_TYPE_CONFIG[row.content_type].label,
+      views: asSafeCount(row.views),
+    }];
+  });
+
+  return {
+    todayViews: (dailyResult.data ?? []).reduce((sum, row) => sum + asSafeCount(row.views), 0),
+    totalViews: (totalsResult.data ?? []).reduce((sum, row) => sum + asSafeCount(row.views), 0),
+    topPages,
+  };
+}
+
 export async function GET() {
   if (!(await checkAdminSession())) {
     return NextResponse.json({ error: 'غير مصرح لك.' }, { status: 401 });
@@ -38,7 +71,12 @@ export async function GET() {
       p_limit: 10,
     });
 
-    if (error) throw error;
+    if (error) {
+      console.warn('[admin analytics] RPC unavailable; using table fallback:', error.message);
+      return NextResponse.json(await loadAnalyticsFromTables(), {
+        headers: { 'Cache-Control': 'no-store' },
+      });
+    }
 
     const result = (data && typeof data === 'object' ? data : {}) as AnalyticsResult;
     const rawTopPages = Array.isArray(result.topPages) ? result.topPages : [];
