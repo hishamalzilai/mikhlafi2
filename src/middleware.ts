@@ -50,8 +50,10 @@ export async function middleware(request: NextRequest) {
 
     const pathname = request.nextUrl.pathname;
     const isAdminPage = pathname.startsWith('/hq-management-system');
+    const isAdminApi = pathname.startsWith('/api/admin');
+    const isAdminSurface = isAdminPage || isAdminApi;
 
-    if (isAdminPage) {
+    if (isAdminSurface) {
       const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
       const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
@@ -87,6 +89,12 @@ export async function middleware(request: NextRequest) {
         const isLoginPage = pathname === '/hq-management-system/login';
 
         if (!isAdmin && !isLoginPage) {
+          // API handlers return their own JSON 401 response. Let them handle
+          // the status while preserving any refreshed auth cookies.
+          if (isAdminApi) {
+            return setContentSecurityPolicy(response, nonce);
+          }
+
           const loginUrl = request.nextUrl.clone();
           loginUrl.pathname = '/hq-management-system/login';
           loginUrl.search = '';

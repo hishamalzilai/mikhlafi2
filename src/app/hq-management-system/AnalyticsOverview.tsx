@@ -23,8 +23,23 @@ export default function AnalyticsOverview() {
 
     fetch('/api/admin/analytics', { cache: 'no-store', signal: controller.signal })
       .then(async (response) => {
-        if (!response.ok) throw new Error('تعذر تحميل الإحصاءات');
-        return response.json() as Promise<AnalyticsData>;
+        const payload = (await response.json().catch(() => null)) as
+          | AnalyticsData
+          | { error?: string }
+          | null;
+
+        if (!response.ok) {
+          if (response.status === 401) {
+            throw new Error('انتهت جلسة الإدارة. أعد تسجيل الدخول ثم حاول مرة أخرى.');
+          }
+          throw new Error(
+            payload && 'error' in payload && payload.error
+              ? payload.error
+              : `تعذر تحميل الإحصاءات (${response.status})`,
+          );
+        }
+
+        return payload as AnalyticsData;
       })
       .then(setData)
       .catch((caught: unknown) => {
