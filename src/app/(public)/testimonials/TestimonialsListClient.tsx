@@ -76,7 +76,7 @@ export default function TestimonialsListClient({ testimonials }: TestimonialsLis
                 </div>
                 
                 <div className="mt-10 pt-8 border-t border-slate-50 flex justify-between items-center">
-                   <Link href={`/testimonials/${item.id}`} className="inline-flex items-center gap-2 text-[#b18c39] font-black text-sm hover:text-slate-900 transition-all group/btn">
+                   <Link href={`/testimonials/${item.id}`} prefetch={false} className="inline-flex items-center gap-2 text-[#b18c39] font-black text-sm hover:text-slate-900 transition-all group/btn">
                       قراءة المحتوى كاملاً
                       <ChevronLeft className="w-4 h-4 transition-transform group-hover/btn:-translate-x-1" />
                    </Link>

@@ -15,6 +15,7 @@
 
 # next.js
 /.next/
+/\.open-next/
 /out/
 
 # production
@@ -32,6 +33,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+.dev.vars*
 
 # vercel
 .vercel
@@ -93,3 +95,8 @@ WhatsApp Unknown*
 scratch/
 pass.txt
 coolify-creds.txt
+
+# Keep reviewed Supabase migrations in version control.
+!supabase/
+!supabase/migrations/
+!supabase/migrations/*.sql

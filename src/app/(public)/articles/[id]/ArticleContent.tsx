@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { Calendar, UserRound, ArrowRight, Printer, Download, ChevronRight, ChevronLeft, MessageCircle, Send, Link2, Check, Share2 } from 'lucide-react';
+import ViewCounter from '@/components/ViewCounter';
 
 // Smart text splitting for pagination
 const splitIntoPages = (textString: string) => {
@@ -60,9 +61,10 @@ interface ArticleContentProps {
     content: string;
     excerpt?: string;
   };
+  initialViews: number;
 }
 
-export default function ArticleContent({ articleData }: ArticleContentProps) {
+export default function ArticleContent({ articleData, initialViews }: ArticleContentProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const [copied, setCopied] = useState(false);
   const paperRef = useRef<HTMLDivElement>(null);
@@ -156,6 +158,7 @@ export default function ArticleContent({ articleData }: ArticleContentProps) {
                           <Calendar className="w-5 h-5" />
                           {articleData.published_date || articleData.date}
                        </div>
+                       <ViewCounter views={initialViews} className="text-lg text-slate-600" />
                     </div>
 
                      {/* Share Buttons */}

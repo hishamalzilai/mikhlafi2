@@ -72,6 +72,7 @@ export default function ArchiveListClient({ archiveList }: ArchiveListClientProp
           {paginatedItems.map((item, index) => (
             <Link 
               href={`/archive/${item.id}`}
+              prefetch={false}
               key={`${activeFilter}-${item.id}`} 
               className="bg-white rounded-3xl border border-slate-200 p-8 relative overflow-hidden group hover:shadow-2xl hover:border-[#b18c39]/40 transition-all duration-500 break-inside-avoid animate-in fade-in slide-in-from-bottom-8 cursor-pointer block"
               style={{ animationFillMode: 'both', animationDelay: `${index * 50}ms` }}
@@ -148,4 +149,3 @@ export default function ArchiveListClient({ archiveList }: ArchiveListClientProp
     </>
   );
 }
-

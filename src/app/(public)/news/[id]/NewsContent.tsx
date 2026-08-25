@@ -4,6 +4,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import SafeImage from '@/components/SafeImage';
 import { Calendar, UserRound, ArrowRight, Printer, Download, ChevronRight, ChevronLeft, MessageCircle, Send, Link2, Check, Share2 } from 'lucide-react';
+import ViewCounter from '@/components/ViewCounter';
 
 const splitIntoPages = (textString: string) => {
   const paragraphs = textString.split(/\n+/).map(s => s.trim()).filter(Boolean);
@@ -40,9 +41,10 @@ interface NewsContentProps {
     date?: string; published_date?: string;
     content: string; excerpt?: string; image_url?: string;
   };
+  initialViews: number;
 }
 
-export default function NewsContent({ newsItem }: NewsContentProps) {
+export default function NewsContent({ newsItem, initialViews }: NewsContentProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const [copied, setCopied] = useState(false);
   const paperRef = useRef<HTMLDivElement>(null);
@@ -89,6 +91,7 @@ export default function NewsContent({ newsItem }: NewsContentProps) {
                      <div className="flex flex-wrap items-center gap-6 font-sans text-slate-600 mb-8">
                         <div className="flex items-center gap-2 text-lg font-bold"><UserRound className="w-5 h-5" />{newsItem.author}</div>
                         <div className="flex items-center gap-2 text-lg font-bold"><Calendar className="w-5 h-5" />{newsItem.date || newsItem.published_date}</div>
+                        <ViewCounter views={initialViews} className="text-lg text-slate-600" />
                      </div>
 
                      <div className="flex flex-wrap items-center gap-3 font-sans print:hidden">

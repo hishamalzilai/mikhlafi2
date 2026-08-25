@@ -53,7 +53,7 @@ export default function ArticlesListClient({ articlesList }: ArticlesListClientP
                      {article.excerpt}
                   </p>
                   
-                  <Link href={`/articles/${article.id}`} className="self-end flex items-center gap-2 text-[#b18c39] font-black text-sm group/btn hover:text-slate-900 transition-colors bg-[#b18c39]/5 hover:bg-[#b18c39]/10 px-5 py-2.5 rounded-full mt-auto">
+                  <Link href={`/articles/${article.id}`} prefetch={false} className="self-end flex items-center gap-2 text-[#b18c39] font-black text-sm group/btn hover:text-slate-900 transition-colors bg-[#b18c39]/5 hover:bg-[#b18c39]/10 px-5 py-2.5 rounded-full mt-auto">
                       قراءة المقال كاملًا
                       <ChevronLeft className="w-4 h-4 transition-transform group-hover/btn:-translate-x-1" />
                   </Link>

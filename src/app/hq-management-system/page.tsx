@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Activity, ShieldCheck, Search, Trash2, CheckCircle2, AlertTriangle, Loader2, Layers } from 'lucide-react';
 import { findDuplicatesAction, deleteSpecificItemsAction } from './actions';
+import AnalyticsOverview from './AnalyticsOverview';
 
 export default function AdminDashboardPage() {
   const [activeSection, setActiveSection] = useState<any>(null);
@@ -101,6 +102,8 @@ export default function AdminDashboardPage() {
             <p className="text-slate-500 font-medium">لوحة التحكم والمؤشرات العامة</p>
          </div>
       </div>
+
+      <AnalyticsOverview />
       
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
          <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col items-center justify-center text-center p-12">

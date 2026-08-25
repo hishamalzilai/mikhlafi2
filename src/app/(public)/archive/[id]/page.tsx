@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { cache } from 'react';
 import ArchiveDetailClient from './ArchiveDetailClient';
 import { createPageMetadata, plainTextExcerpt } from '@/lib/seo';
+import { recordPageView } from '@/lib/page-view-server';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 3600;
@@ -34,5 +35,6 @@ export default async function ArchiveItemPage({ params }: { params: Promise<{ id
   const resolvedParams = await params;
   const item = await getArchiveItem(resolvedParams.id);
   if (!item) notFound();
-  return <ArchiveDetailClient item={item} />;
+  const initialViews = await recordPageView('archive', String(item.id), item.title);
+  return <ArchiveDetailClient item={item} initialViews={initialViews} />;
 }

@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { cache } from 'react';
 import ArticleContent from './ArticleContent';
 import { createPageMetadata, plainTextExcerpt } from '@/lib/seo';
+import { recordPageView } from '@/lib/page-view-server';
 
 // Force dynamic rendering to ensure live data at runtime
 export const dynamic = 'force-dynamic';
@@ -41,5 +42,6 @@ export default async function ArticleReadPage({ params }: { params: Promise<{ id
     notFound();
   }
 
-  return <ArticleContent articleData={articleData} />;
+  const initialViews = await recordPageView('articles', String(articleData.id), articleData.title);
+  return <ArticleContent articleData={articleData} initialViews={initialViews} />;
 }

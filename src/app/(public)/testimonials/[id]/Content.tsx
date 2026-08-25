@@ -4,6 +4,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import SafeImage from '@/components/SafeImage';
 import { Calendar, UserRound, ArrowRight, Printer, Download, ChevronRight, ChevronLeft, MessageCircle, Send, Link2, Check, Share2, Quote } from 'lucide-react';
+import ViewCounter from '@/components/ViewCounter';
 
 // Smart text splitting for pagination (matching ArticleContent)
 const splitIntoPages = (textString: string) => {
@@ -62,9 +63,10 @@ interface TestimonialContentProps {
     title?: string;
     published_date?: string;
   };
+  initialViews: number;
 }
 
-export default function Content({ data }: TestimonialContentProps) {
+export default function Content({ data, initialViews }: TestimonialContentProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const [copied, setCopied] = useState(false);
   const [shareUrl, setShareUrl] = useState('');
@@ -181,6 +183,7 @@ export default function Content({ data }: TestimonialContentProps) {
                           <Calendar className="w-5 h-5 text-[#b18c39]" />
                           {formatDate(data.published_date || data.created_at)}
                        </div>
+                       <ViewCounter views={initialViews} className="text-lg text-slate-600" />
                     </div>
 
                     {/* Share Buttons */}
@@ -249,4 +252,3 @@ export default function Content({ data }: TestimonialContentProps) {
     </div>
   );
 }
-

@@ -97,7 +97,7 @@ export default function VisionListClient({ studiesList }: VisionListClientProps)
                         {study.date}
                      </div>
                      
-                     <Link href={`/vision/${study.id}`} className="flex items-center gap-2 text-[#b18c39] font-black text-sm group/btn hover:text-slate-900 transition-colors">
+                     <Link href={`/vision/${study.id}`} prefetch={false} className="flex items-center gap-2 text-[#b18c39] font-black text-sm group/btn hover:text-slate-900 transition-colors">
                         اقرأ الدراسة
                         <ChevronLeft className="w-4 h-4 transition-transform group-hover/btn:-translate-x-1" />
                      </Link>

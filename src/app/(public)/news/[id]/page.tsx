@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { cache } from 'react';
 import NewsContent from './NewsContent';
 import { createPageMetadata, plainTextExcerpt } from '@/lib/seo';
+import { recordPageView } from '@/lib/page-view-server';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 3600;
@@ -34,5 +35,6 @@ export default async function NewsReadPage({ params }: { params: Promise<{ id: s
   const resolvedParams = await params;
   const newsItem = await getNewsItem(resolvedParams.id);
   if (!newsItem) notFound();
-  return <NewsContent newsItem={newsItem} />;
+  const initialViews = await recordPageView('news', String(newsItem.id), newsItem.title);
+  return <NewsContent newsItem={newsItem} initialViews={initialViews} />;
 }

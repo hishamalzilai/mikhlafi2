@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { cache } from 'react';
 import Content from './Content';
 import { createPageMetadata, plainTextExcerpt } from '@/lib/seo';
+import { recordPageView } from '@/lib/page-view-server';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 3600;
@@ -39,5 +40,10 @@ export default async function TestimonialReadPage({ params }: { params: Promise<
     notFound();
   }
 
-  return <Content data={data} />;
+  const initialViews = await recordPageView(
+    'testimonials',
+    String(data.id),
+    data.title || data.author_name,
+  );
+  return <Content data={data} initialViews={initialViews} />;
 }

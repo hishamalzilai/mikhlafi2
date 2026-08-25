@@ -4,12 +4,14 @@ import React from 'react';
 import Link from 'next/link';
 import SafeImage from '@/components/SafeImage';
 import { FileText, Image as ImageIcon, Video, Calendar, ArrowRight, Download, Eye } from 'lucide-react';
+import ViewCounter from '@/components/ViewCounter';
 
 interface ArchiveDetailClientProps {
   item: any;
+  initialViews: number;
 }
 
-export default function ArchiveDetailClient({ item }: ArchiveDetailClientProps) {
+export default function ArchiveDetailClient({ item, initialViews }: ArchiveDetailClientProps) {
   return (
     <div className="min-h-screen bg-slate-900 font-sans animate-in fade-in duration-1000">
        
@@ -47,8 +49,9 @@ export default function ArchiveDetailClient({ item }: ArchiveDetailClientProps) 
                  <div className="max-w-3xl text-center">
                     <h1 className="text-3xl md:text-5xl font-black text-white mb-6 drop-shadow-md leading-tight">{item.title}</h1>
                     <p className="text-lg md:text-xl text-slate-300 leading-relaxed font-serif text-justify md:text-center px-4">{item.description}</p>
-                    <div className="flex items-center justify-center gap-2 mt-8 text-slate-500 font-bold border-t border-slate-800 pt-6">
-                       <Calendar className="w-5 h-5 text-[#b18c39]" />{item.published_date}
+                    <div className="flex flex-wrap items-center justify-center gap-6 mt-8 text-slate-400 font-bold border-t border-slate-800 pt-6">
+                       <div className="flex items-center gap-2"><Calendar className="w-5 h-5 text-[#b18c39]" />{item.published_date}</div>
+                       <ViewCounter views={initialViews} className="text-slate-400" />
                     </div>
                  </div>
              </div>
@@ -69,7 +72,10 @@ export default function ArchiveDetailClient({ item }: ArchiveDetailClientProps) 
                     </div>
                     <div className="flex-shrink-0 bg-slate-900/50 px-6 py-4 rounded-xl border border-slate-700 w-full md:w-auto">
                        <div className="text-sm text-slate-500 mb-1">تاريخ النشر</div>
-                       <div className="flex items-center gap-2 text-white font-bold text-lg"><Calendar className="w-5 h-5 text-[#b18c39]" />{item.published_date}</div>
+                       <div className="flex flex-wrap items-center gap-5 text-white font-bold text-lg">
+                          <div className="flex items-center gap-2"><Calendar className="w-5 h-5 text-[#b18c39]" />{item.published_date}</div>
+                          <ViewCounter views={initialViews} className="text-base text-slate-300" />
+                       </div>
                     </div>
                  </div>
              </div>
@@ -88,7 +94,10 @@ export default function ArchiveDetailClient({ item }: ArchiveDetailClientProps) 
                              <FileText className="w-10 h-10 text-slate-500" />
                           </div>
                           <h1 className="text-3xl md:text-5xl font-black text-slate-900 mb-6 leading-snug">{item.title}</h1>
-                          <div className="flex items-center justify-center gap-2 text-slate-500 font-bold text-lg"><Calendar className="w-5 h-5" />{item.published_date}</div>
+                          <div className="flex flex-wrap items-center justify-center gap-6 text-slate-500 font-bold text-lg">
+                             <div className="flex items-center gap-2"><Calendar className="w-5 h-5" />{item.published_date}</div>
+                             <ViewCounter views={initialViews} className="text-slate-500" />
+                          </div>
                        </div>
                        <div className="bg-slate-50 border border-slate-200 p-8 rounded-xl font-serif text-xl border-dashed leading-relaxed text-slate-800">{item.description}</div>
                        <div className="mt-auto pt-16 flex flex-col sm:flex-row justify-center gap-4">

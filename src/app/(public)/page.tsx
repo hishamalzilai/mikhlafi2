@@ -99,7 +99,7 @@ export default async function Home() {
               </p>
               <div className="pt-4 flex flex-col gap-4">
                  {latestStudies?.map((study) => (
-                   <Link key={study.id} href={`/vision/${study.id}`} className="flex items-center gap-4 p-4 border border-slate-200 bg-white hover:border-[#b18c39] transition-all cursor-pointer shadow-sm group">
+                   <Link key={study.id} href={`/vision/${study.id}`} prefetch={false} className="flex items-center gap-4 p-4 border border-slate-200 bg-white hover:border-[#b18c39] transition-all cursor-pointer shadow-sm group">
                       <div className="w-12 h-12 bg-slate-50 rounded-none flex items-center justify-center shrink-0 group-hover:bg-[#b18c39] group-hover:text-white transition-all text-slate-500">
                          <FileText size={20} />
                       </div>
@@ -137,7 +137,7 @@ export default async function Home() {
                  <p className="text-slate-500 font-medium text-sm leading-relaxed mb-6 line-clamp-3 flex-1">
                    {news.excerpt}
                  </p>
-                 <Link href={`/news/${news.id}`} aria-label={`التفاصيل عن ${news.title}`} className="text-xs font-black text-[#b18c39] flex items-center gap-2 hover:gap-4 transition-all mt-auto">
+                 <Link href={`/news/${news.id}`} prefetch={false} aria-label={`التفاصيل عن ${news.title}`} className="text-xs font-black text-[#b18c39] flex items-center gap-2 hover:gap-4 transition-all mt-auto">
                    التفاصيل <ArrowLeft size={14}/>
                  </Link>
                </div>
@@ -260,7 +260,7 @@ export default async function Home() {
                    <span className="text-xs font-bold text-slate-500">
                      {item.published_date ? new Date(item.published_date).toLocaleDateString('ar-YE') : '---'}
                    </span>
-                   <Link href={`/testimonials/${item.id}`} aria-label={`اقرأ الشهادة لـ ${item.author_name}`} className="text-xs font-black text-[#b18c39] flex items-center gap-2 hover:gap-4 transition-all">
+                   <Link href={`/testimonials/${item.id}`} prefetch={false} aria-label={`اقرأ الشهادة لـ ${item.author_name}`} className="text-xs font-black text-[#b18c39] flex items-center gap-2 hover:gap-4 transition-all">
                      اقرأ الشهادة <ArrowLeft size={14}/>
                    </Link>
                  </div>

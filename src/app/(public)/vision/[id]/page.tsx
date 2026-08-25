@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { cache } from 'react';
 import VisionContent from './VisionContent';
 import { createPageMetadata, plainTextExcerpt } from '@/lib/seo';
+import { recordPageView } from '@/lib/page-view-server';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 3600;
@@ -34,5 +35,6 @@ export default async function StudyReadPage({ params }: { params: Promise<{ id: 
   const resolvedParams = await params;
   const studyData = await getStudy(resolvedParams.id);
   if (!studyData) notFound();
-  return <VisionContent studyData={studyData} />;
+  const initialViews = await recordPageView('studies', String(studyData.id), studyData.title);
+  return <VisionContent studyData={studyData} initialViews={initialViews} />;
 }

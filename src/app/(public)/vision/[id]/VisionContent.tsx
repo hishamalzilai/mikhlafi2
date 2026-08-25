@@ -3,6 +3,7 @@
 import React, { useState, useRef } from 'react';
 import Link from 'next/link';
 import { Calendar, ArrowRight, Printer, Download, ChevronRight, ChevronLeft, BookOpen } from 'lucide-react';
+import ViewCounter from '@/components/ViewCounter';
 
 const splitIntoPages = (textString: string) => {
   const paragraphs = textString.split(/\n+/).map(s => s.trim()).filter(Boolean);
@@ -45,9 +46,10 @@ const splitIntoPages = (textString: string) => {
 
 interface VisionContentProps {
   studyData: any;
+  initialViews: number;
 }
 
-export default function VisionContent({ studyData }: VisionContentProps) {
+export default function VisionContent({ studyData, initialViews }: VisionContentProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const paperRef = useRef<HTMLDivElement>(null);
 
@@ -88,9 +90,12 @@ export default function VisionContent({ studyData }: VisionContentProps) {
                        {studyData.category || "دراسة متخصصة"}
                     </span>
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 leading-snug max-w-4xl font-sans mb-6">{studyData.title}</h1>
-                    <div className="flex items-center gap-2 font-sans font-bold text-slate-500 text-lg">
-                       <Calendar className="w-5 h-5" />
-                       {studyData.published_date || studyData.date}
+                    <div className="flex flex-wrap items-center gap-6 font-sans font-bold text-slate-500 text-lg">
+                       <div className="flex items-center gap-2">
+                          <Calendar className="w-5 h-5" />
+                          {studyData.published_date || studyData.date}
+                       </div>
+                       <ViewCounter views={initialViews} className="text-lg text-slate-500" />
                     </div>
                  </div>
                  <div className="text-slate-500 font-sans text-lg md:text-xl font-bold absolute top-0 left-0">صفحة {currentPage} من {totalPages}</div>
@@ -103,7 +108,7 @@ export default function VisionContent({ studyData }: VisionContentProps) {
                   </div>
               )}
 
-              <article className="prose prose-lg md:prose-xl lg:prose-xl max-w-none text-slate-800 prose-headings:font-black prose-p:text-justify prose-p:leading-[2.2] flex-1 whitespace-pre-wrap break-all prose-p:text-[18px] prose-p:font-bold">
+              <article className="prose prose-lg md:prose-xl lg:prose-xl max-w-none text-slate-800 prose-headings:font-black prose-p:text-justify prose-p:leading-[2.2] flex-1 whitespace-pre-wrap prose-p:text-[18px] prose-p:font-bold">
                  {paginatedContent.map((paragraph: string, index: number) => (
                     <p key={index} className="mb-8">{paragraph}</p>
                  ))}
