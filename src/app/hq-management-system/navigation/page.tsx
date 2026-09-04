@@ -149,7 +149,7 @@ export default function NavigationManagement() {
           <p className="text-sm font-medium leading-relaxed opacity-80">
             استخدم الأسهم لتحريك العناصر للأعلى أو للأسفل. الترتيب الذي تراه هنا سيتم تطبيقه فوراً على القائمة الرئيسية في أعلى الموقع، وكذلك في القائمة الجانبية للأجهزة المحمولة. 
             <br />
-            <strong className="mt-2 block">ملاحظة:</strong> التغييرات ستظهر للزوار فور الضغط على زر "حفظ الترتيب".
+            <strong className="mt-2 block">ملاحظة:</strong> التغييرات ستظهر للزوار فور الضغط على زر &quot;حفظ الترتيب&quot;.
           </p>
         </div>
       </div>

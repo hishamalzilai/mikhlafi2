@@ -11,7 +11,7 @@ const SEARCH_MAX_REQUESTS = 30;
 // Define unified search result type
 export type SearchResult = {
   id: string;
-  type: 'news' | 'article' | 'study' | 'archive' | 'media' | 'testimonial';
+  type: 'news' | 'article' | 'study' | 'archive' | 'media' | 'testimonial' | 'quote';
   title: string;
   excerpt: string;
   date: string;
@@ -38,12 +38,17 @@ export async function searchAll(query: string): Promise<SearchResult[]> {
     .replace(/_/g, '\\_');   // Escape underscore
   const searchPattern = `%${escapedQuery}%`;
 
-  const [rpcResult, testimonialsResult] = await Promise.all([
+  const [rpcResult, testimonialsResult, quotesResult] = await Promise.all([
     supabase.rpc('search_all', { query_text: trimmedQuery }),
     supabase
       .from('testimonials')
       .select('id, title, content, published_date, author_name')
       .or(`title.ilike.${searchPattern},content.ilike.${searchPattern},author_name.ilike.${searchPattern}`)
+      .limit(10),
+    supabase
+      .from('quotes_tweets')
+      .select('id, title, content, excerpt, published_date, content_type')
+      .or(`title.ilike.${searchPattern},content.ilike.${searchPattern},excerpt.ilike.${searchPattern}`)
       .limit(10)
   ]);
 
@@ -72,6 +77,25 @@ export async function searchAll(query: string): Promise<SearchResult[]> {
       url: `/testimonials/${item.id}`
     }));
     results = [...results, ...testimonialItems];
+  }
+
+  if (!quotesResult.error && quotesResult.data) {
+    const quoteItems = quotesResult.data.map((item: {
+      id: number;
+      title: string;
+      content: string;
+      excerpt?: string | null;
+      published_date?: string | null;
+      content_type: string;
+    }) => ({
+      id: String(item.id),
+      type: 'quote' as const,
+      title: item.title,
+      excerpt: item.excerpt || (item.content?.length > 100 ? `${item.content.substring(0, 100)}...` : item.content) || '',
+      date: item.published_date ? new Date(item.published_date).toLocaleDateString('ar-YE', { year: 'numeric', month: 'long', day: 'numeric' }) : '',
+      url: `/quotes/${item.id}`
+    }));
+    results = [...results, ...quoteItems];
   }
 
   return results;

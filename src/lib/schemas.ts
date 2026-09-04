@@ -10,6 +10,20 @@ export const articleSchema = z.object({
   published_date: z.string().max(50).optional(),
 });
 
+export const quoteTweetSchema = z.object({
+  id: z.number().optional(),
+  title: z.string().min(3, "العنوان يجب أن يتكون من 3 أحرف على الأقل").max(500),
+  content: z.string().min(3, "نص القول أو التغريدة مطلوب").max(100000),
+  author: z.string().min(2, "اسم القائل مطلوب").max(200),
+  excerpt: z.string().max(2000).optional(),
+  content_type: z.enum(['قول', 'تغريدة']),
+  source_url: z.string().refine(
+    (val) => val === '' || isValidGeneralUrl(val),
+    { message: "رابط المصدر غير صالح" }
+  ).optional(),
+  published_date: z.string().max(50).optional(),
+});
+
 export const newsSchema = z.object({
   id: z.number().optional(),
   title: z.string().min(3, "Title must be at least 3 characters").max(500),

@@ -10,6 +10,7 @@ export const MASTER_NAVIGATION: NavItem[] = [
   { id: 'vision', path: '/vision', title: 'دراسات وأبحاث' },
   { id: 'news', path: '/news', title: 'أخبار وآراء' },
   { id: 'articles', path: '/articles', title: 'مقالات' },
+  { id: 'quotes', path: '/quotes', title: 'أقوال وتغريدات' },
   { id: 'testimonials', path: '/testimonials', title: 'شهادات وآراء' },
   { id: 'archive', path: '/archive', title: 'الأرشيف الشامل' },
   { id: 'archive-cooperation', path: '/archive-cooperation', title: 'دعوة تعاون توثيق' },

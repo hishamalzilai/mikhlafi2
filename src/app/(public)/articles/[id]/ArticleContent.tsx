@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import Link from 'next/link';
 import { Calendar, UserRound, ArrowRight, Printer, Download, ChevronRight, ChevronLeft, MessageCircle, Send, Link2, Check, Share2 } from 'lucide-react';
 import ViewCounter from '@/components/ViewCounter';
@@ -62,9 +62,10 @@ interface ArticleContentProps {
     excerpt?: string;
   };
   initialViews: number;
+  shareUrl: string;
 }
 
-export default function ArticleContent({ articleData, initialViews }: ArticleContentProps) {
+export default function ArticleContent({ articleData, initialViews, shareUrl }: ArticleContentProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const [copied, setCopied] = useState(false);
   const paperRef = useRef<HTMLDivElement>(null);
@@ -94,11 +95,6 @@ export default function ArticleContent({ articleData, initialViews }: ArticleCon
           scrollToTop();
       }
   };
-
-  const [shareUrl, setShareUrl] = useState('');
-  useEffect(() => {
-    setShareUrl(window.location.href);
-  }, []);
 
   const handleCopyLink = () => {
      navigator.clipboard.writeText(shareUrl);

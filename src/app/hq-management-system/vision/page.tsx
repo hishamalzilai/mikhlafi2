@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { getStudiesAction, saveStudyAction, deleteStudyAction } from '../vision-actions';
 import { Loader2, Plus, Trash2, Edit, CheckCircle2, BookOpen, UserRound, Tag, Search } from 'lucide-react';
 
-const STUDY_CATEGORIES = ['ورقة عمل', 'دراسة', 'بحث', 'تحليل سياسي', 'رؤية استراتيجية'];
+const STUDY_CATEGORIES = ['ورقة عمل', 'دراسة', 'بحث', 'حوار', 'تحليل سياسي', 'رؤية استراتيجية'];
 
 export default function AdminStudiesPage() {
   const [studies, setStudies] = useState<any[]>([]);

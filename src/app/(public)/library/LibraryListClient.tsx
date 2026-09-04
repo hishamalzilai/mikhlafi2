@@ -1,21 +1,30 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useSyncExternalStore } from 'react';
 import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import { getMediaThumbnailUrl } from '@/lib/validate-url';
 import { Play, ChevronLeft, ChevronRight, Search, Clock, Film, X, Expand } from 'lucide-react';
 
-interface LibraryListClientProps {
-  mediaList: any[];
-}
+type MediaFilter = 'all' | 'video' | 'photo';
 
-function MediaCard({ item, index, onSelect }: { item: any; index: number; onSelect: () => void }) {
-  const [imgSrc, setImgSrc] = useState(getMediaThumbnailUrl(item.thumbnail_url, item.type, '/default-video-cover.png'));
+type MediaItem = {
+  id: number;
+  title?: string | null;
+  type: 'video' | 'photo' | 'image';
+  thumbnail_url?: string | null;
+  duration?: string | null;
+  description?: string | null;
+};
 
-  useEffect(() => {
-    setImgSrc(getMediaThumbnailUrl(item.thumbnail_url, item.type, '/default-video-cover.png'));
-  }, [item.thumbnail_url, item.type]);
+interface LibraryListClientProps { mediaList: MediaItem[]; }
+
+const subscribeToClient = () => () => {};
+const getClientSnapshot = () => true;
+const getServerSnapshot = () => false;
+
+function MediaCard({ item, index, onSelect }: { item: MediaItem; index: number; onSelect: () => void }) {
+  const [imgSrc, setImgSrc] = useState(getMediaThumbnailUrl(item.thumbnail_url || '', item.type, '/default-video-cover.png'));
 
   const handleImageError = () => {
     if (imgSrc.includes('maxresdefault.jpg')) {
@@ -79,14 +88,13 @@ function MediaCard({ item, index, onSelect }: { item: any; index: number; onSele
 }
 
 export default function LibraryListClient({ mediaList }: LibraryListClientProps) {
-  const [activeFilter, setActiveFilter] = useState<'all' | 'video' | 'photo'>('all');
+  const [activeFilter, setActiveFilter] = useState<MediaFilter>('all');
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedPhoto, setSelectedPhoto] = useState<{url: string, title: string, desc: string} | null>(null);
-  const [mounted, setMounted] = useState(false);
+  const mounted = useSyncExternalStore(subscribeToClient, getClientSnapshot, getServerSnapshot);
   const ITEMS_PER_PAGE = 9;
 
   useEffect(() => {
-    setMounted(true);
     const handleEsc = (e: KeyboardEvent) => { if (e.key === 'Escape') setSelectedPhoto(null); };
     window.addEventListener('keydown', handleEsc);
     return () => window.removeEventListener('keydown', handleEsc);
@@ -102,17 +110,17 @@ export default function LibraryListClient({ mediaList }: LibraryListClientProps)
     currentPage * ITEMS_PER_PAGE
   );
 
-  const handleFilterChange = (filter: any) => { setActiveFilter(filter); setCurrentPage(1); };
+  const handleFilterChange = (filter: MediaFilter) => { setActiveFilter(filter); setCurrentPage(1); };
 
   return (
     <>
        {/* Filter Navigation */}
        <div className="flex flex-wrap items-center justify-center gap-4 mb-20">
-          {[
+          {([
             { id: 'all', label: 'الجميع' },
             { id: 'photo', label: 'الصور' },
             { id: 'video', label: 'الفيديوهات' },
-          ].map(filter => (
+          ] as const).map(filter => (
              <button
                key={filter.id}
                onClick={() => handleFilterChange(filter.id)}
@@ -131,10 +139,10 @@ export default function LibraryListClient({ mediaList }: LibraryListClientProps)
        <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
           {paginatedItems.map((item, index) => (
              <MediaCard 
-               key={item.id} 
+               key={`${item.id}-${item.thumbnail_url}-${item.type}`}
                item={item} 
                index={index} 
-               onSelect={() => setSelectedPhoto({ url: item.thumbnail_url, title: item.title, desc: item.description })} 
+               onSelect={() => setSelectedPhoto({ url: item.thumbnail_url || '', title: item.title || 'مادة مرئية', desc: item.description || '' })}
              />
           ))}
        </div>

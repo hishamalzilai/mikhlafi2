@@ -102,6 +102,7 @@ export default function GlobalSearch({ isOpen, onClose }: GlobalSearchProps) {
       case 'archive': return <FolderArchive className="w-4 h-4" />;
       case 'media': return <Film className="w-4 h-4" />;
       case 'testimonial': return <Quote className="w-4 h-4" />;
+      case 'quote': return <Quote className="w-4 h-4" />;
       default: return <FileText className="w-4 h-4" />;
     }
   };
@@ -114,6 +115,7 @@ export default function GlobalSearch({ isOpen, onClose }: GlobalSearchProps) {
       case 'archive': return 'أرشيف';
       case 'media': return 'مكتبة مرئية';
       case 'testimonial': return 'شهادة / رأي';
+      case 'quote': return 'قول / تغريدة';
       default: return 'وثيقة';
     }
   };
@@ -201,6 +203,7 @@ export default function GlobalSearch({ isOpen, onClose }: GlobalSearchProps) {
                               result.type === 'study' ? 'bg-purple-500/10 text-purple-400 border-purple-500/20' :
                               result.type === 'archive' ? 'bg-[#b18c39]/10 text-[#b18c39] border-[#b18c39]/20' :
                               result.type === 'testimonial' ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' :
+                              result.type === 'quote' ? 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20' :
                               'bg-rose-500/10 text-rose-400 border-rose-500/20'
                            }`}>
                               {getTypeIcon(result.type)}

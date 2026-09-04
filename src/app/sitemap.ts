@@ -14,12 +14,13 @@ type SitemapRecord = {
 
 const getSitemapRecords = unstable_cache(
   async () => {
-    const [articles, news, archive, studies, testimonials] = await Promise.all([
+    const [articles, news, archive, studies, testimonials, quotes] = await Promise.all([
       supabase.from('articles').select('id, published_date'),
       supabase.from('news').select('id, published_date'),
       supabase.from('archive').select('id, published_date'),
       supabase.from('studies').select('id, published_date'),
       supabase.from('testimonials').select('id, published_date, created_at'),
+      supabase.from('quotes_tweets').select('id, published_date, created_at'),
     ]);
 
     return {
@@ -28,6 +29,7 @@ const getSitemapRecords = unstable_cache(
       archive: (archive.data || []) as SitemapRecord[],
       vision: (studies.data || []) as SitemapRecord[],
       testimonials: (testimonials.data || []) as SitemapRecord[],
+      quotes: (quotes.data || []) as SitemapRecord[],
     };
   },
   ['public-sitemap-records'],
@@ -39,6 +41,7 @@ const getSitemapRecords = unstable_cache(
       CACHE_TAGS.archive,
       CACHE_TAGS.vision,
       CACHE_TAGS.testimonials,
+      CACHE_TAGS.quotes,
     ],
   },
 );
@@ -61,6 +64,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/contact',
     '/library',
     '/news',
+    '/quotes',
     '/testimonials',
     '/vision',
   ];
@@ -72,6 +76,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/archive', records: records.archive },
     { path: '/vision', records: records.vision },
     { path: '/testimonials', records: records.testimonials },
+    { path: '/quotes', records: records.quotes },
   ];
 
   const staticEntries: MetadataRoute.Sitemap = staticRoutes.map((path) => ({

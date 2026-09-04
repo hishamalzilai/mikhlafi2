@@ -2,7 +2,7 @@ import { supabase } from '@/lib/supabase';
 import { notFound } from 'next/navigation';
 import { cache } from 'react';
 import NewsContent from './NewsContent';
-import { createPageMetadata, plainTextExcerpt } from '@/lib/seo';
+import { createPageMetadata, plainTextExcerpt, SITE_URL } from '@/lib/seo';
 import { recordPageView } from '@/lib/page-view-server';
 
 export const dynamic = 'force-dynamic';
@@ -36,5 +36,5 @@ export default async function NewsReadPage({ params }: { params: Promise<{ id: s
   const newsItem = await getNewsItem(resolvedParams.id);
   if (!newsItem) notFound();
   const initialViews = await recordPageView('news', String(newsItem.id), newsItem.title);
-  return <NewsContent newsItem={newsItem} initialViews={initialViews} />;
+  return <NewsContent newsItem={newsItem} initialViews={initialViews} shareUrl={`${SITE_URL}/news/${newsItem.id}`} />;
 }

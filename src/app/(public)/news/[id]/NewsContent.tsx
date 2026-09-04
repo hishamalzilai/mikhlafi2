@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import Link from 'next/link';
 import SafeImage from '@/components/SafeImage';
 import { Calendar, UserRound, ArrowRight, Printer, Download, ChevronRight, ChevronLeft, MessageCircle, Send, Link2, Check, Share2 } from 'lucide-react';
@@ -42,9 +42,10 @@ interface NewsContentProps {
     content: string; excerpt?: string; image_url?: string;
   };
   initialViews: number;
+  shareUrl: string;
 }
 
-export default function NewsContent({ newsItem, initialViews }: NewsContentProps) {
+export default function NewsContent({ newsItem, initialViews, shareUrl }: NewsContentProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const [copied, setCopied] = useState(false);
   const paperRef = useRef<HTMLDivElement>(null);
@@ -59,11 +60,6 @@ export default function NewsContent({ newsItem, initialViews }: NewsContentProps
   };
   const handleNext = () => { if (currentPage < totalPages) { setCurrentPage(p => p + 1); scrollToTop(); } };
   const handlePrev = () => { if (currentPage > 1) { setCurrentPage(p => p - 1); scrollToTop(); } };
-
-  const [shareUrl, setShareUrl] = useState('');
-  useEffect(() => {
-    setShareUrl(window.location.href);
-  }, []);
 
   const handleCopyLink = () => { navigator.clipboard.writeText(shareUrl); setCopied(true); setTimeout(() => setCopied(false), 2000); };
 

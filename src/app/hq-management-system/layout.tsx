@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
-import { LayoutDashboard, Newspaper, FileText, BookOpen, Film, FolderArchive, LogOut, UserRound, Menu, X, Home, Quote, Palette, Info } from 'lucide-react';
+import { LayoutDashboard, Newspaper, FileText, BookOpen, Film, FolderArchive, LogOut, UserRound, Menu, X, Home, Quote, Palette, Info, MessagesSquare } from 'lucide-react';
 import Link from 'next/link';
 import { logoutAdmin } from './auth-actions';
 
@@ -31,6 +31,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { href: "/hq-management-system/about", label: "من نحن", icon: Info },
     { href: "/hq-management-system/testimonials", label: "الشهادات والآراء", icon: Quote },
     { href: "/hq-management-system/articles", label: "المقالات", icon: FileText },
+    { href: "/hq-management-system/quotes", label: "الأقوال والتغريدات", icon: MessagesSquare },
     { href: "/hq-management-system/vision", label: "الدراسات", icon: BookOpen },
     { href: "/hq-management-system/library", label: "المكتبة المرئية", icon: Film },
     { href: "/hq-management-system/archive", label: "الأرشيف الشامل", icon: FolderArchive },

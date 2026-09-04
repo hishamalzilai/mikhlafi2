@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import Link from 'next/link';
 import SafeImage from '@/components/SafeImage';
 import { Calendar, UserRound, ArrowRight, Printer, Download, ChevronRight, ChevronLeft, MessageCircle, Send, Link2, Check, Share2, Quote } from 'lucide-react';
@@ -64,18 +64,13 @@ interface TestimonialContentProps {
     published_date?: string;
   };
   initialViews: number;
+  shareUrl: string;
 }
 
-export default function Content({ data, initialViews }: TestimonialContentProps) {
+export default function Content({ data, initialViews, shareUrl }: TestimonialContentProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const [copied, setCopied] = useState(false);
-  const [shareUrl, setShareUrl] = useState('');
   const paperRef = useRef<HTMLDivElement>(null);
-
-  // Fix hydration mismatch by setting share URL on client
-  useEffect(() => {
-    setShareUrl(window.location.href);
-  }, []);
 
   const pages = splitIntoPages(data.content || "");
   const totalPages = Math.max(1, pages.length);
@@ -158,9 +153,11 @@ export default function Content({ data, initialViews }: TestimonialContentProps)
               {/* Document Header */}
               <div className="border-b-2 border-slate-900 pb-8 mb-12 relative flex justify-between items-end z-10">
                  <div>
-                    <span className="text-[#b18c39] font-black uppercase tracking-[0.3em] text-sm mb-4 block font-sans">{data.title || 'شهادة في الموقف والمسيرة الوطنية'}</span>
-                    <h1 className="text-4xl md:text-5xl lg:text-7xl font-black text-slate-900 leading-tight max-w-4xl font-sans mb-8">
+                    <span className="text-[#b18c39] font-black uppercase tracking-[0.3em] text-sm mb-4 block font-sans">
                        {data.author_name} يكتب عن القامة الوطنية
+                    </span>
+                    <h1 className="text-4xl md:text-5xl lg:text-7xl font-black text-slate-900 leading-tight max-w-4xl font-sans mb-8">
+                       {data.title || 'شهادة في الموقف والمسيرة الوطنية'}
                     </h1>
                     
                     <div className="flex flex-wrap items-center gap-8 font-sans text-slate-600 mb-10">

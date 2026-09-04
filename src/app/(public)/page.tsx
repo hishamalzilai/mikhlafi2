@@ -10,7 +10,7 @@ import { createPageMetadata } from '@/lib/seo';
 
 export const metadata = createPageMetadata(
   'عبدالملك المخلافي | الموقع الرسمي',
-  'الموقع الرقمي الشامل والأرشيف التاريخي للمفكر والسياسي اليمني عبدالملك المخلافي.',
+  'الموقع الرقمي الشامل والأرشيف التاريخي لعبدالملك المخلافي.',
   '/',
   true,
 );
@@ -30,7 +30,7 @@ export default async function Home() {
   // Use new hardcoded quotes as requested
   const heroTitle = content?.hero_title || "عبد الملك عبد الجليل المخلافي";
   const heroQuote = "سبتمبر 1962 ثورة أعادت للإنسان اليمني إنسانيته وحريته وكرامته وإيمانه بخالقه .\nثورة 26 سبتمبر بمقاييس ما أحدثته في اليمن من تحول هي واحدة من أعظم الثورات وحركات التغيير في التاريخ الإنساني كله";
-  const heroSubtitle = content?.hero_subtitle || "مفكر وسياسي يمني";
+  const heroSubtitle = content?.hero_subtitle || "الموقع الرقمي الشامل والأرشيف التاريخي لعبدالملك المخلافي";
   const visionQuote = "مشروعنا واضح إنهاء التمرد واستعادة الدولة وسلاحها وبناء دولة اتحادية ديمقراطية للجميع بدون إقصاء او تهميش لأي طرف اوفئة او جماعة او منطقة .";
 
   // Default milestones if none in DB
@@ -57,7 +57,7 @@ export default async function Home() {
             <div className="relative pl-8 md:pl-12 border-r-8 border-[#b18c39] py-4 bg-slate-50 pr-6 md:pr-10 shadow-inner">
                <Quote className="absolute -right-4 -top-6 text-slate-200 w-16 h-16 rotate-180" />
                <p className="text-xl md:text-3xl font-black leading-[1.6] text-slate-800 relative z-10 whitespace-pre-line">
-                 "{heroQuote}"
+                 &quot;{heroQuote}&quot;
                </p>
             </div>
           </div>
@@ -82,7 +82,7 @@ export default async function Home() {
               <Quote className="text-slate-200 w-24 h-24 absolute top-4 left-4" />
               <div className="relative z-10">
                  <p className="text-xl md:text-3xl font-black text-slate-900 leading-relaxed italic mb-8">
-                   "{visionQuote}"
+                   &quot;{visionQuote}&quot;
                  </p>
                  <Link href="/vision" className="text-[#b18c39] font-black text-sm flex items-center gap-3 hover:gap-5 transition-all uppercase tracking-widest">
                    قراءة في العمق الفكري <ArrowLeft size={18}/>
@@ -165,7 +165,7 @@ export default async function Home() {
 
               <div className="text-center mt-12 pt-8 border-t border-slate-800">
                  <Link href="/bio" className="inline-flex items-center gap-3 text-white font-black hover:text-[#b18c39] transition-colors">
-                    تصفح المسيرة والمهام بالتفصيل <ArrowLeft size={16} />
+                    الانتقال إلى السيرة الذاتية والمحطات التأريخية <ArrowLeft size={16} />
                  </Link>
               </div>
            </div>
@@ -284,7 +284,7 @@ export default async function Home() {
                  الركن الأساسي لتعزيز الشفافية وحفظ الذاكرة الوطنية المعاصرة. يضم الأرشيف الرقمي وثائق تمتد لأكثر من 30 عاماً، خطابات تاريخية هامة، واتفاقيات محورية شكلت تاريخ اليمن.
               </p>
               <Link href="/archive" className="bg-slate-900 text-white px-12 py-5 rounded-none font-black text-sm hover:bg-[#b18c39] transition-all flex items-center gap-4 shadow-xl uppercase tracking-widest mt-6">
-                 الولوج إلى الخزانة <ArrowLeft size={20} />
+                 الانتقال إلى الصفحة <ArrowLeft size={20} />
               </Link>
            </div>
         </section>

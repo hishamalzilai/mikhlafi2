@@ -8,6 +8,7 @@ export const CACHE_TAGS = {
   branding: 'branding-settings',
   homepage: 'homepage-settings',
   articles: 'articles-list',
+  quotes: 'quotes-list',
   news: 'news-list',
   archive: 'archive-list',
   testimonials: 'testimonials-list',
@@ -25,7 +26,7 @@ const DEFAULT_BRANDING: BrandingSettings = {
 const DEFAULT_HOMEPAGE: HomepageContent = {
   hero_title: 'عبد الملك عبد الجليل المخلافي',
   hero_quote: 'سبتمبر 1962 ثورة أعادت للإنسان اليمني إنسانيته وحريته وكرامته وإيمانه بخالقه .\nثورة 26 سبتمبر بمقاييس ما أحدثته في اليمن من تحول هي واحدة من أعظم الثورات وحركات التغيير في التاريخ الإنساني كله',
-  hero_subtitle: 'مفكر وسياسي يمني',
+  hero_subtitle: 'الموقع الرقمي الشامل والأرشيف التاريخي لعبدالملك المخلافي',
   vision_quote: 'مشروعنا واضح إنهاء التمرد واستعادة الدولة وسلاحها وبناء دولة اتحادية ديمقراطية للجميع بدون إقصاء او تهميش لأي طرف اوفئة او جماعة او منطقة .',
 };
 

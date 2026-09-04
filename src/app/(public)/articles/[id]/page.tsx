@@ -2,7 +2,7 @@ import { supabase } from '@/lib/supabase';
 import { notFound } from 'next/navigation';
 import { cache } from 'react';
 import ArticleContent from './ArticleContent';
-import { createPageMetadata, plainTextExcerpt } from '@/lib/seo';
+import { createPageMetadata, plainTextExcerpt, SITE_URL } from '@/lib/seo';
 import { recordPageView } from '@/lib/page-view-server';
 
 // Force dynamic rendering to ensure live data at runtime
@@ -43,5 +43,5 @@ export default async function ArticleReadPage({ params }: { params: Promise<{ id
   }
 
   const initialViews = await recordPageView('articles', String(articleData.id), articleData.title);
-  return <ArticleContent articleData={articleData} initialViews={initialViews} />;
+  return <ArticleContent articleData={articleData} initialViews={initialViews} shareUrl={`${SITE_URL}/articles/${articleData.id}`} />;
 }

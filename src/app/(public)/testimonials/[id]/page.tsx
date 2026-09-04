@@ -2,7 +2,7 @@ import { supabase } from '@/lib/supabase';
 import { notFound } from 'next/navigation';
 import { cache } from 'react';
 import Content from './Content';
-import { createPageMetadata, plainTextExcerpt } from '@/lib/seo';
+import { createPageMetadata, plainTextExcerpt, SITE_URL } from '@/lib/seo';
 import { recordPageView } from '@/lib/page-view-server';
 
 export const dynamic = 'force-dynamic';
@@ -45,5 +45,5 @@ export default async function TestimonialReadPage({ params }: { params: Promise<
     String(data.id),
     data.title || data.author_name,
   );
-  return <Content data={data} initialViews={initialViews} />;
+  return <Content data={data} initialViews={initialViews} shareUrl={`${SITE_URL}/testimonials/${data.id}`} />;
 }

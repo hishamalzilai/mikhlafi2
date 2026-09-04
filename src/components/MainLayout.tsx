@@ -41,9 +41,18 @@ export const PortalLogo = ({ className, settings, type = 'header' }: { className
 
 export const YemeniEagle = PortalLogo;
 
+function formatCurrentDate() {
+  try {
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' } as const;
+    return new Intl.DateTimeFormat('ar-YE', options).format(new Date());
+  } catch {
+    return new Date().toLocaleDateString('ar-EG');
+  }
+}
+
 export default function MainLayout({ children }: { children: React.ReactNode }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [currentDate, setCurrentDate] = useState('');
+  const [currentDate] = useState(formatCurrentDate);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [branding, setBranding] = useState<BrandingSettings | null>(null);
   const [navLinks, setNavLinks] = useState<NavItem[]>(MASTER_NAVIGATION);
@@ -64,13 +73,6 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
     };
     fetchData();
     
-    try {
-      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' } as const;
-      setCurrentDate(new Intl.DateTimeFormat('ar-YE', options).format(new Date()));
-    } catch (e) {
-      setCurrentDate(new Date().toLocaleDateString('ar-EG'));
-    }
-
     const handleCmdK = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();

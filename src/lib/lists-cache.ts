@@ -16,6 +16,18 @@ export const getCachedArticles = unstable_cache(
   { revalidate: 300, tags: [CACHE_TAGS.articles] }
 );
 
+export const getCachedQuotes = unstable_cache(
+  async () => {
+    const { data } = await supabase
+      .from('quotes_tweets')
+      .select('*')
+      .order('published_date', { ascending: false });
+    return data || [];
+  },
+  ['quotes-list'],
+  { revalidate: 300, tags: [CACHE_TAGS.quotes] }
+);
+
 export const getCachedNews = unstable_cache(
   async () => {
     const { data } = await supabase

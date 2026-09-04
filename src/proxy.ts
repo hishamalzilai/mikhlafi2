@@ -40,7 +40,7 @@ function redirectWithCookies(url: URL, currentResponse: NextResponse, nonce: str
     return setContentSecurityPolicy(redirectResponse, nonce);
 }
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
     // Set a per-request CSP nonce so inline scripts loaded by Next.js are allowed
     // while blocking arbitrary injected scripts.
     const nonce = generateNonce();

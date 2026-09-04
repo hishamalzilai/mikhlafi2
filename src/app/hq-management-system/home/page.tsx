@@ -154,7 +154,7 @@ export default function HomepageManagement() {
                 value={content.hero_subtitle}
                 onChange={(e) => setContent({...content, hero_subtitle: e.target.value})}
                 className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:border-[#b18c39] focus:bg-white transition-all font-bold"
-                placeholder="مثال: مفكر وسياسي يمني"
+                placeholder="مثال: الموقع الرقمي الشامل والأرشيف التاريخي لعبدالملك المخلافي"
               />
             </div>
           </div>
